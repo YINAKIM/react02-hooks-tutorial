@@ -1,53 +1,37 @@
-import {useState,useEffect} from "react";
+import {useReducer,useState,useEffect} from "react";
+
+function reducer(state, action){        // action값으로 이벤트대상(e.target) 자체을 받아옴
+    return{
+        ...state,
+        [action.name]: action.value     // e.target, e.target.name, e.target.value 전부 접근가능 == (클래스컴포넌트에서) e.target.name을 참조하여 setState하는 방식과 유사하게 으로 동작
+    };
+}
+
 
 const Info = () => {
-  const [name, setName] = useState('');
-  const [nickName, setNickName] = useState('');
+    const [state, dispatch] = useReducer(reducer,{ name:'', nickname:'' });
+    const {name, nickname} = state;
 
-  useEffect( () => {
-      console.log('effect:',name);
+    const onChange = e => {
+        debugger;
+        dispatch(e.target);              // onChange이벤트에 타겟 자체를 action값으로하여 reducer함수 호출
+    };
 
-      // 1.화살표 함수로 clean-up용 함수리턴
-      // return () => {
-      //     console.log('cleanup:',name);
-      // };
-
-      // 2.선언형 함수로 clean-up용 함수리턴
-      // return function cleanup() {
-      //      console.log('return cleanup func:',name);
-      // };
-
-      // 3. 내맘대로이름으로 clean-up용 함수리턴
-      // return function cleanclean() {
-      //      console.log('return cleanclean:',name);
-      // };
-
-      // 위 1,2,3 모두 useEffect안에서 함수를 리턴하면서 clean-up용도의 작업을 수행함
-  },[name]);
-
-  const onChangeName = e => {
-      setName(e.target.value);
-  }
-
-  const onChangeNickName = e => {
-      setNickName(e.target.value);
-  }
-
-  return (
+    return (
       <>
         <div>
-            <input value={name} onChange={onChangeName}/>
-            <input value={nickName} onChange={onChangeNickName}/>
+            <input name="name" value={name} onChange={onChange}/>
+            <input name="nickname"  value={nickname} onChange={onChange}/>
         </div>
 
         <div>
             <b>이름 : </b>{name}
         </div>
         <div>
-            <b>닉네임 : </b>{nickName}
+            <b>닉네임 : </b>{nickname}
         </div>
       </>
-  );
+    );
 }
 
 export default Info;
