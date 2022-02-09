@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useMemo, useState} from "react";
 
 const getAverage = numbers => {
     console.log('평균값계산중.........');
@@ -25,6 +25,10 @@ const AverageUseMemo = () => {
         setNumber('');
     };
 
+
+    // list의 값이 변경되었을 때(--> 여기서는 onInsert함수가 실행되어 setList(nextList)가 실행된 때를 의미)만 호출
+    const avg = useMemo(() => getAverage(list),[list]);
+
     return(
         <>
             <input value={number} onChange={onChange}/>
@@ -35,7 +39,7 @@ const AverageUseMemo = () => {
                 ))}
             </ul>
             <div>
-                <b>평균값:</b>{getAverage(list)}
+                <b>평균값:</b>{avg}
             </div>
         </>
     );
