@@ -3,9 +3,11 @@ import './App.css';
 import Counter from "./Counter";
 import Info from "./Info";
 import AverageUseMemo from "./AverageUseMemo";
+import AverageUseCallback from "./AverageUseCallback";
+import CounterUseState from "./CounterUseState";
 
 const App = () => {
-  return <AverageUseMemo/>;
+  return <AverageUseCallback/>;
 };
 
 export default App;
