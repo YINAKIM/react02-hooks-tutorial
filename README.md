@@ -12,19 +12,19 @@
 
 ***2-1. 처음 렌터링될 때만 실행시키려면? 두번째 인자로 빈 배열을 넣음***    
   : 함수컴포넌트가 화면에 맨 처음 렌더링 될 때(componentDidMount)만 실행하고, 업데이트될 때(componentDidUpdate)는 실행하지 않음
-  ```
+  ```javascript
   useEffect( () => {
       console.log('최초렌더링에만 실행');
   },[]);
   ```
 ***2-1. 특정 값이 업데이트될 때만 실행시키려면? 두번째 인자 배열에 지정 state또는 props 값을 넣음***
-  ```
+  ```javascript
   useEffect( () => {
       console.log('name이 변할 때만 실행');
   },[name]);
   ```
 ***2-3. clean-up : 컴포넌트가 unmount되기 전 or 업데이트되기 직전에 어떤 작업을 수행하려면? useEffect에서 "cleanup함수"를 반환해준다.***
-  ```
+  ```javascript
     useEffect( () => {
       console.log('effect:',name);
 
@@ -41,7 +41,7 @@
 
 
 ## 3. useReducer
-```
+```javascript
  const [state, dispatch] = useReducer(reducer, {value:0});
 ```
 - useReducer함수에 (리듀서함수, 리듀서함수가실행시킬 initialState)
@@ -49,7 +49,7 @@
 - dispatch(action) : 액션을 발생시키는 함수 (이벤트핸들러에서 액션type을 받아, 리듀서함수를 호출하는 구조)   
 
 ***3-1. useReducer사용하는 이유? 컴포넌트 업데이트 로직을 따로 빼서 작성할 수 있다.***
-```
+```javascript
 function reducer(state, action) {
     debugger;
 
@@ -71,7 +71,7 @@ function reducer(state, action) {
 ***3-2. useReducer로 input상태 관리하기***
 - useReducer에서 액션값은 다양한 값을 보낼 수 있다.
 - onChange이벤트핸들러에서 이벤트 타겟자체를 action값으로하여 reducer함수 호출할 수 있다. 
-```
+```javascript
     const onChange = e => {
         dispatch(e.target);        
     };
@@ -79,7 +79,7 @@ function reducer(state, action) {
 - 이벤트핸들러에서 dispatch로 리듀서 함수를 호출하고 >>> 리듀서함수에서는 action값으로 이벤트대상(e.target) 자체을 받아옴
 - e.target, e.target.name, e.target.value 전부 접근가능 
 - 즉, 클래스컴포넌트에서 e.target.name을 참조하여 setState하는 방식과 유사하게 으로 동작
-```
+```javascript
 function reducer(state, action){      // 여기 e.target이 들어옴    
     return{
         ...state,
@@ -93,8 +93,8 @@ function reducer(state, action){      // 여기 e.target이 들어옴
 
    
 ## 5. useCallback
-```
-useCallback(함수, [의존값1, 의존값2, ...])
+```javascript
+useCallback(함수, [의존값1, 의존값2, ...]);
 ```
 - 첫번째 파라미터 : 생성하고싶은 함수
 - 두번째 파라미터 : 배열 -> 어떤 값이 바뀌었을 때 함수를 새로 생성할 지 명시 
